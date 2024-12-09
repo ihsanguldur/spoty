@@ -4,14 +4,17 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"spoty/configs"
 )
 
 func main() {
+	cfg := configs.LoadConfigs()
+
 	http.HandleFunc("/test", testHandler)
 
 	fmt.Println("server is listening on port 8080")
 
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	if err := http.ListenAndServe(fmt.Sprintf(":%s", cfg.AppPort), nil); err != nil {
 		log.Fatalf("error while starting server: \n%v", err)
 	}
 }
