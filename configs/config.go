@@ -11,8 +11,9 @@ import (
 type Config struct {
 	AppPort string
 
-	SpotifyClintId      string
+	SpotifyClientId     string
 	SpotifyClientSecret string
+	SpotifyRedirectUri  string
 }
 
 var once sync.Once
@@ -26,8 +27,9 @@ func LoadConfigs() *Config {
 
 		instance = &Config{
 			AppPort:             getEnv("APP_PORT", "8080"),
-			SpotifyClintId:      getEnv("SPOTIFY_CLIENT_ID", "spotify-client-id"),
+			SpotifyClientId:     getEnv("SPOTIFY_CLIENT_ID", "spotify-client-id"),
 			SpotifyClientSecret: getEnv("SPOTIFY_CLIENT_SECRET", "spotify-client-secret"),
+			SpotifyRedirectUri:  getEnv("SPOTIFY_REDIRECT_URI", "http://localhost:8080/spotify/callback"),
 		}
 	})
 
