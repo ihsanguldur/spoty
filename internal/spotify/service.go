@@ -11,7 +11,7 @@ import (
 	"net/http"
 	"net/url"
 	"spoty/configs"
-	"spoty/internal/utils"
+	"spoty/internal/pkg/util"
 	"strings"
 )
 
@@ -31,7 +31,7 @@ func NewSpotifyService(config *configs.Config) *Service {
 	}
 }
 func (s *Service) RedirectToLogin(w http.ResponseWriter, r *http.Request) {
-	state, _ := utils.FixedLengthRandomString(16)
+	state, _ := util.FixedLengthRandomString(16)
 
 	cookie := &http.Cookie{Name: stateKey, Value: state, HttpOnly: true}
 	http.SetCookie(w, cookie)
@@ -112,7 +112,7 @@ func (s *Service) Callback(w http.ResponseWriter, r *http.Request) {
 		}
 		http.SetCookie(w, accessTokenCookie)
 
-		//TODO get and set cookie utils
+		//TODO get and set cookie util
 		refreshTokenCookie := &http.Cookie{
 			Name:     SpotifyRefreshTokenKey,
 			Value:    spotifyAuthorizationResponse.RefreshToken,
@@ -182,7 +182,7 @@ func (s *Service) RefreshToken(w http.ResponseWriter, r *http.Request) {
 		}
 		http.SetCookie(w, accessTokenCookie)
 
-		//TODO get and set cookie utils
+		//TODO get and set cookie util
 		if spotifyAuthorizationResponse.RefreshToken != "" {
 			refreshTokenCookie := &http.Cookie{
 				Name:     SpotifyRefreshTokenKey,
@@ -225,8 +225,8 @@ func (s *Service) GetTopArtists(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query()
 
 	// bunlarin default degeri olacak api da neyse o
-	timeRange := utils.SetDefaultValue(query.Get("time_range"), "medium_term")
-	limit := utils.SetDefaultValue(query.Get("limit"), "20")
+	timeRange := util.SetDefaultValue(query.Get("time_range"), "medium_term")
+	limit := util.SetDefaultValue(query.Get("limit"), "20")
 
 	// TODO add error handler
 	req, _ := http.NewRequest("GET", "https://api.spotify.com/v1/me/top/artists", nil)
@@ -278,8 +278,8 @@ func (s *Service) GetTopTracks(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query()
 
 	// bunlarin default degeri olacak api da neyse o
-	timeRange := utils.SetDefaultValue(query.Get("time_range"), "medium_term")
-	limit := utils.SetDefaultValue(query.Get("limit"), "20")
+	timeRange := util.SetDefaultValue(query.Get("time_range"), "medium_term")
+	limit := util.SetDefaultValue(query.Get("limit"), "20")
 
 	// TODO add error handler
 	req, _ := http.NewRequest("GET", "https://api.spotify.com/v1/me/top/tracks", nil)
