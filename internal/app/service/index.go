@@ -1,3 +1,3 @@
-package services
+package appservice
 
 type Service interface{}
