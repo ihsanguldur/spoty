@@ -3,6 +3,7 @@ package utils
 import (
 	"crypto/rand"
 	"encoding/hex"
+	"reflect"
 )
 
 func FixedLengthRandomString(length int) (string, error) {
@@ -14,3 +15,17 @@ func FixedLengthRandomString(length int) (string, error) {
 
 	return hex.EncodeToString(bytes), nil
 }
+
+// TODO: Not done yet
+// ---------------------------------------
+func SetDefaultValue[T any](value, defaultValue T) T {
+	var empty T
+
+	if reflect.DeepEqual(empty, value) {
+		return defaultValue
+	}
+
+	return value
+}
+
+// ---------------------------------------

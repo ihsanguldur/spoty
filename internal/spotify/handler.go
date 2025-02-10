@@ -24,4 +24,6 @@ func (s *Handler) RegisterSpotifyHandler() {
 	spotifyHandler.HandleFunc("/callback", s.service.Callback).Methods("GET")
 
 	spotifyHandler.HandleFunc("/refresh", s.service.RefreshToken).Methods("GET")
+
+	spotifyHandler.HandleFunc("/top-artists", s.service.GetTopArtists).Methods("GET")
 }
