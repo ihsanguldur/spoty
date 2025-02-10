@@ -20,6 +20,6 @@ func NewAppHandler(router *mux.Router) *appHandler {
 
 func (h *appHandler) RegisterHandlers() {
 	h.Router.HandleFunc("/home", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("spotify authorization succeced"))
+		w.Write([]byte("spotify authorization succeded"))
 	}).Methods("GET")
 }
